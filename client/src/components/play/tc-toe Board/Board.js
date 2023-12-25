@@ -3,9 +3,18 @@ import Sqaure from './Sqaure'
 import calculateWinner from "./calculateWinner";
 import { UserContext } from "../../../UserContext"
 import './Game.css'
+import EventLogDisplay from '../chat/EventLogDisplay';
 
 const Board = ({ socket, room_id }) => {
+	const [eventLog, setEventLog] = useState([]);
 
+  const logEvent = (eventName) => {
+    setEventLog((currentLog) => [
+      ...currentLog,
+      { eventName, timestamp: new Date() },
+    ]);
+  };
+    // eslint-disable-next-line
 	const { user, setUser } = useContext(UserContext);
 	const [squares, setSquares] = useState(Array(9).fill(null))
 	const [, updateState] = React.useState();
@@ -25,6 +34,8 @@ const Board = ({ socket, room_id }) => {
 
 	useEffect(() => {
 		socket.on('squareClickedReceived', click => {
+		logEvent("square-clicked-recieved",click );
+
 			const i = click.i;			
 			squares[i] = xIsNext.current ? 'X' : 'O';
 			xIsNext.current = !xIsNext.current;				
@@ -36,12 +47,15 @@ const Board = ({ socket, room_id }) => {
 			if ( Chance.current === -1 ) Chance.current = 2;
 			console.log(squares);
 			forceUpdate();
-		})		
+		})	
+		// eslint-disable-next-line	
 	} , [squares, xIsNext ])
 
 
 	useEffect(() => {
 		socket.on('playAgainReceived', () => {
+		logEvent("play-again-recieved" );
+
 			squares.fill(null);
 			setSquares(squares)
 			console.log(squares);
@@ -49,11 +63,12 @@ const Board = ({ socket, room_id }) => {
 			Player.current = '';
 			forceUpdate();
 		})
+		// eslint-disable-next-line
 	}, [squares])
 	
 
 	const handleClick = (i) => {
-
+// if it is not the chance of current user
 		if ( Chance.current === 2 || Chance.current === -1 || calculateWinner(squares) || squares[i]) {
 			return;
 		}
@@ -66,11 +81,15 @@ const Board = ({ socket, room_id }) => {
 			room_id
 		};
 		socket.emit('squareClicked', click);
+		logEvent("square-clicked",click );
+
 		Chance.current = -1;
 	}
 
 	const PlayAgain = () => {
 		socket.emit('playAgain', room_id);
+		logEvent("play-again-recieved" );
+
 	}
 
 	const renderSquare = (i) => {
@@ -82,6 +101,8 @@ const Board = ({ socket, room_id }) => {
 
 	return (
 		<div id="Board">
+        <EventLogDisplay log={eventLog} title={"Socket Log Events for Board"}/>
+
 			<div className="status">{status}</div>			
 			<div id="Board_game">
 				<div className="board-row">

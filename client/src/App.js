@@ -11,7 +11,6 @@ import Cookies from 'universal-cookie';
 
 function App() {
 	const cookies = new Cookies();
-
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
@@ -23,6 +22,7 @@ function App() {
 			}
 		}
 		verifyUser();
+		// eslint-disable-next-line
 	}, [])
 
 	return (

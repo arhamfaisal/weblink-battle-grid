@@ -6,6 +6,7 @@ import serverURL from '../../constant'
 const axios = require('axios');
 
 const Home = () => {
+    // eslint-disable-next-line
     const { user, setUser } = useContext(UserContext);
     const [room_id, setRoom_id] = useState('');
     const [error, setError] = useState('')

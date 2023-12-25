@@ -14,6 +14,7 @@ const Play = () => {
 
     const ENDPT = `http://${serverURL}/`
     //set global user
+    // eslint-disable-next-line
     const {user , setUser} = useContext(UserContext);
     //To Get Paramters from URL and display
     const { room_id } = useParams();
@@ -31,7 +32,7 @@ const Play = () => {
         //emit join user event to server with below parmas 
         socket.emit('join' , room_id );
         console.log( user.name +" "+ user.id  +" " + room_id);
-
+// eslint-disable-next-line
     }, [ENDPT])    
     
     useEffect(() => {

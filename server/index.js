@@ -150,7 +150,7 @@ app.get("/", (req, res) => {
 
 //Open Socket io Connection
 io.on('connection', (socket) => {
-
+console.log("Io Connection established")
     // user join register room_id 
     socket.on('join' , async room_id=>{
         console.log('user joined' , room_id);
