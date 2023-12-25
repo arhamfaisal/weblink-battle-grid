@@ -28,10 +28,10 @@ const Home = () => {
 
         axios(options)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
                 if (res.data.err){
                     setError(res.data.err);
-                }else if (res.data.doc){
+                }else if (res.data.updatedRoom){
                     browserHistory.push('/play/' + room_id)
                     console.log('bye');
                 }
@@ -45,7 +45,8 @@ const Home = () => {
     //Function to call server and get new Room id 
     const genereateUniqueID = () => {
         axios.get(`http://${serverURL}/create_room`).then(res => {
-            browserHistory.push('/play/' + res.data)
+            console.log(res,'data')
+            browserHistory.push('/play/' + res.data.roomId)
         })
     }
 
@@ -55,7 +56,7 @@ const Home = () => {
 
     return (
         <div className="home-container">
-            Hello World {user ? user.name : ''} 😀
+            Hello {user ? user.name : ''} 😀
             <div className="error" style={{display: !error?'none':'flex'}} >{error}</div>
             <form onSubmit={joinRoom} id="room-form">
                 <input

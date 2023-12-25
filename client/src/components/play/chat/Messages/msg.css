@@ -15,7 +15,7 @@
     display: inline-block;
     border-radius: 5px;
     padding: 1rem;
-    background: #81cc00 ;
+    background: #5f3dc4 ;
     color: #f6f6f6;
     -webkit-animation: bounce-in 1s 1;
             animation: bounce-in 1s 1;
@@ -29,7 +29,7 @@
     position: absolute;
     content: "";
     border: 1rem solid;
-    border-color: #81cc00  transparent transparent #81cc00;
+    border-color: #5f3dc4  transparent transparent #5f3dc4;
   }
   
   .sentbyme {
@@ -142,7 +142,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #81cc00;
+  background: #5f3dc4;
 }
 
 /* Handle on hover */

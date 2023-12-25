@@ -9,7 +9,8 @@ const RoomSchema = new mongoose.Schema({
     },
     noOfUser:{
         type:Number,
-        required:true
+        required:true,
+        default: 1// Set default value for noOfUser
     }
 });
 
